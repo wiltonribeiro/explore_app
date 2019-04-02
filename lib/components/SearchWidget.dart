@@ -18,7 +18,7 @@ class _SearchWidget extends State<SearchWidget> with TickerProviderStateMixin {
   void initState() {
     _visible = false;
     _questBloc = new QuestBloc();
-    _duration = Duration(seconds: 1);
+    _duration = Duration(milliseconds: 600);
     _textEditingController = new TextEditingController();
     _controller = AnimationController(vsync: this, duration: _duration);
     super.initState();
@@ -38,7 +38,7 @@ class _SearchWidget extends State<SearchWidget> with TickerProviderStateMixin {
       new Row(children: <Widget>[
         new AnimatedBuilder(animation: _controller, builder: (BuildContext context, Widget child) {
           return
-            new Container(width: _animation.value, child:
+            new Container(padding: EdgeInsets.only(left: 20), width: _animation.value, child:
               new TextField(controller: _textEditingController, onSubmitted: _submitContent, decoration: InputDecoration(border: InputBorder.none, hintText: "Search"), style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25))
           );
         }),

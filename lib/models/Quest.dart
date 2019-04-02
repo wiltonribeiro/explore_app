@@ -13,6 +13,10 @@ abstract class Quest {
 
   List<Photo> get photos => _photos;
 
+  void addListPhoto(List<Photo> data){
+    this._photos.addAll(data);
+  }
+
   void addPhoto(Photo photo){
     _photos.add(photo);
   }

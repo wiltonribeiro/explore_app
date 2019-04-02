@@ -1,4 +1,5 @@
 import 'package:rxdart/rxdart.dart';
+import 'package:explore_flutter/bloc/PhotosBloc.dart';
 import 'package:explore_flutter/models/Quest.dart';
 import 'package:explore_flutter/models/UserQuest.dart';
 import 'package:explore_flutter/models/DefaultQuest.dart';
@@ -6,24 +7,26 @@ import 'package:explore_flutter/models/DefaultQuest.dart';
 class QuestBloc {
   
   static QuestBloc _questBloc;
-  List<Quest> _questList;
-  Quest _currentQuest;
 
-  PublishSubject<Quest> _publishSubjectQuest;
-  PublishSubject<List<Quest>> _publishSubjectQuestList;
-  
   factory QuestBloc(){
     if(_questBloc == null)
       _questBloc = new QuestBloc._();
     
     return _questBloc;
   }
-  
+
+  List<Quest> _questList;
+  Quest _currentQuest;
+  PublishSubject<Quest> _publishSubjectQuest;
+  PublishSubject<List<Quest>> _publishSubjectQuestList;
+  PhotosBloc _photosBloc;
+
   QuestBloc._(){
-    _questList = [new DefaultQuest("Popular"), new DefaultQuest("Newest")];
-    _currentQuest = _questList.first;
+    _photosBloc = new PhotosBloc();
     _publishSubjectQuest = new PublishSubject<Quest>();
     _publishSubjectQuestList = new PublishSubject<List<Quest>>();
+    _questList = [new DefaultQuest("Popular"), new DefaultQuest("Newest")];
+    selectQuest(_questList.first);
   }
 
   Observable<List<Quest>> get listenQuestList => _publishSubjectQuestList.stream;
@@ -59,6 +62,7 @@ class QuestBloc {
 
   void selectQuest(Quest quest){
     _currentQuest = quest;
+    _photosBloc.requestPhoto(quest);
     _updateCurrentQuest();
   }
 
