@@ -20,7 +20,7 @@ class Author {
     this.bio = data["bio"];
     this.location = data["location"];
     this.instagramUsername = data["instagram_username"];
-    this.profileImage = data["profile_image"]["large"];
+    this.profileImage = data["profile_image"]["small"];
   }
 
   @override

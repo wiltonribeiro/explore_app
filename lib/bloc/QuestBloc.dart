@@ -43,18 +43,16 @@ class QuestBloc {
 
     Quest _userQuest = new UserQuest(questContent);
     _questList.add(_userQuest);
-    _currentQuest = _userQuest;
-
     _updateQuestList();
-    _updateCurrentQuest();
+
+    selectQuest(_userQuest);
     return true;
   }
 
   void removeQuest(Quest quest){
     _questList.remove(quest);
     if(quest == _currentQuest){
-      _currentQuest = _questList.last;
-      _updateCurrentQuest();
+      selectQuest(_questList.last);
     }
 
     _updateQuestList();

@@ -1,22 +1,45 @@
 import 'package:explore_flutter/models/Photo.dart';
+import 'package:explore_flutter/models/Quest.dart';
 import 'dart:convert';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:http/http.dart' as http;
 
 class PhotosRepository {
 
+  final _headers = {"Authorization":"Client-ID <API_KEY>"};
 
-  Future<List<Photo>> requestPhotosByQuery(String query) async {
-    String data = await rootBundle.loadString("assets/data/photoTemplate.json");
-    var jsonResult = json.decode(data);
+  Future<List<Photo>> requestPhoto(Quest quest, {int page = 1}) async {
+    switch(quest.keyWord.toLowerCase()){
+      case "popular":
+        return _requestPhotoByPopularity(page: page);
+        break;
+      case "newest":
+        return _requestPhotoByDate(page: page);
+        break;
+      default:
+        return _requestPhotosByQuery(quest.keyWord, page: page);
+        break;
+    }
+  }
+
+  Future<List<Photo>> _requestPhotosByQuery(String query, {int page = 1}) async {
+    String url = "https://api.unsplash.com/search/photos?page=$page&query=${query.replaceAll(" ", "+")}";
+    var data = await http.get(url, headers: _headers);
+    var jsonResult = json.decode(data.body);
     return _buildList(jsonResult["results"]);
   }
 
-  List<Photo> requestPhotoByPopularity(){
-
+  Future<List<Photo>> _requestPhotoByPopularity({int page = 1}) async {
+    String url = "https://api.unsplash.com/photos?page=$page&order_by=popular";
+    var data = await http.get(url, headers: _headers);
+    var jsonResult = json.decode(data.body);
+    return _buildList(jsonResult);
   }
 
-  List<Photo> requestPhotoByDate(){
-
+  Future<List<Photo>> _requestPhotoByDate({int page = 1}) async {
+    String url = "https://api.unsplash.com/photos?page=$page&order_by=latest";
+    var data = await http.get(url, headers: _headers);
+    var jsonResult = json.decode(data.body);
+    return _buildList(jsonResult);
   }
 
   List<Photo> _buildList(List data){

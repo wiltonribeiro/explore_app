@@ -3,7 +3,8 @@ import 'package:explore_flutter/components/SearchWidget.dart';
 import 'package:explore_flutter/models/Quest.dart';
 import 'package:explore_flutter/components/QuestWidget.dart';
 import 'package:explore_flutter/bloc/QuestBloc.dart';
-import 'package:explore_flutter/components/GridCustomPhoto.dart';
+import 'package:explore_flutter/bloc/PhotosBloc.dart';
+import 'package:explore_flutter/components/CustomGridPhoto.dart';
 
 class Home extends StatefulWidget {
   _Home createState() => new _Home();
@@ -11,12 +12,21 @@ class Home extends StatefulWidget {
 
 class _Home extends State<Home>{
 
-  ScrollController _scrollController = new ScrollController();
-  QuestBloc _questBloc = new QuestBloc();
+  ScrollController _scrollController;
+  QuestBloc _questBloc;
+  PhotosBloc _photosBloc;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _questBloc = new QuestBloc();
+    _photosBloc = new PhotosBloc();
+    _scrollController = new ScrollController();
+  }
   
   @override
   Widget build(BuildContext context) {
-    
     return new Scaffold(backgroundColor: Colors.white, body:
       new SingleChildScrollView(child:
         new Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.max, children: <Widget>[
@@ -38,8 +48,13 @@ class _Home extends State<Home>{
               )
             ])
           ),
-          new StreamBuilder(initialData: _questBloc.currentQuest, stream: _questBloc.listenCurrentQuest, builder: (context, AsyncSnapshot<Quest> snapshot){
-            return new GridCustomPhoto(quest: snapshot.data);
+          new StreamBuilder(initialData: _photosBloc.currentStatus, stream: _photosBloc.photosLoadingStatus, builder: (context, AsyncSnapshot<bool> snapshot){
+            if(snapshot.data) return new CustomGridPhoto(quest: _questBloc.currentQuest);
+            return new Container(height: MediaQuery.of(context).size.height*0.4, child:
+              new Center(child:
+                new CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.black))
+              )
+            );
           })
         ])
       )

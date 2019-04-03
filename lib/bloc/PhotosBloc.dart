@@ -16,6 +16,7 @@ class PhotosBloc {
 
   PhotosRepository _photosRepository;
   PublishSubject<bool> _publishSubjectLoadedPhotos;
+  bool _currentStatus = false;
 
   PhotosBloc._(){
     _photosRepository = new PhotosRepository();
@@ -27,14 +28,19 @@ class PhotosBloc {
 
   void requestPhoto(Quest quest) async {
     _updateStatus(false);
-    List<Photo> photos =  await _photosRepository.requestPhotosByQuery(quest.keyWord);
-    quest.addListPhoto(photos);
+    if(!quest.isLoaded()){
+      List<Photo> photos =  await _photosRepository.requestPhoto(quest);
+      quest.addListPhoto(photos);
+    }
     _updateStatus(true);
   }
 
   void _updateStatus(bool status){
-    _publishSubjectLoadedPhotos.sink.add(status);
+    _currentStatus = status;
+    _publishSubjectLoadedPhotos.sink.add(_currentStatus);
   }
+
+  bool get currentStatus => _currentStatus;
 
   dispose(){
     _publishSubjectLoadedPhotos.close();

@@ -21,4 +21,8 @@ abstract class Quest {
     _photos.add(photo);
   }
 
+  bool isLoaded(){
+    return _photos.length>0;
+  }
+
 }

@@ -8,7 +8,7 @@ class Photo {
   String color;
   String description;
   String altDescription;
-  String thumbURL;
+  String smallURL;
   String largeURL;
   String regularURL;
   String downloadURL;
@@ -22,17 +22,11 @@ class Photo {
     this.color = data["color"];
     this.description = data["description"];
     this.altDescription = data["alt_description"];
-    this.thumbURL = data["urls"]["thumb"];
+    this.smallURL = data["urls"]["small"];
     this.largeURL = data["urls"]["full"];
     this.regularURL = data["urls"]["regular"];
     this.downloadURL = data["links"]["download"];
     this.author = new Author.fromJSON(data["user"]);
   }
-
-  @override
-  String toString() {
-    return 'Photo{id: $id, createdAt: $createdAt, width: $width, height: $height, color: $color, description: $description, altDescription: $altDescription, thumbURL: $thumbURL, largeURL: $largeURL, downloadURL: $downloadURL, author: $author}';
-  }
-
 
 }
