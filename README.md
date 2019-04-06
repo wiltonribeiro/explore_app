@@ -7,8 +7,8 @@ This app was created inspired by the GIF in the end of this page. The code was b
 ### Unsplash API
 This app used [Unsplash API](https://unsplash.com/developers) as Photography Search Engine. It's for free, so if you want to fork this repository and reuse the code, be sure to use your Access Key at this [classe](./lib/services/PhotosAPI.dart). Then the app will run perfectly. 
 
-### Design Details
-The inspiration video just shows the User Experience when searching for some categories in the app. This app brings something more like Favorites Photos, Personalized Bottom Menu Bar, Image Details, and more.
+### Design and Implementation Details
+The inspiration video just shows the User Experience when searching for some categories in the app. This app brings something more like Favorites Photos, Personalized Bottom Menu Bar, Image Details, API Request Structure and more.
 
 ### The Inspiration
 The GIF below shows the inspiration concept app.
