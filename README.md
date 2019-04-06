@@ -9,9 +9,6 @@ This app used [Unsplash API](https://unsplash.com/developers) as Photography Sea
 
 ### Design Details
 The inspiration video just shows the User Experience when searching for some categories in the app. This app brings something more like Favorites Photos, Personalized Bottom Menu Bar, Image Details, and more.
- 
-### Notes
-The Download Image feature was not made just because that was not the purpose of this challenge but feel free to change it.
 
 ### The Inspiration
 The GIF below shows the inspiration concept app.
@@ -23,3 +20,5 @@ The GIF below shows this current app running.
 
 ![App Running](./docs/app-running.gif)
 
+#### Notes
+The Download Image feature was not made just because that was not the purpose of this challenge but feel free to change it.
