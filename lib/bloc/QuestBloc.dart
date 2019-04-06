@@ -26,6 +26,7 @@ class QuestBloc {
     _publishSubjectQuest = new PublishSubject<Quest>();
     _publishSubjectQuestList = new PublishSubject<List<Quest>>();
     _questList = [new DefaultQuest("Popular"), new DefaultQuest("Newest")];
+
     selectQuest(_questList.first);
   }
 

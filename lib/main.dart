@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:explore_flutter/views/Home.dart';
+import 'package:explore_flutter/views/Favorites.dart';
 import 'components/CustomBottomNavBar.dart';
 
 void main() => runApp(MyApp());
@@ -13,7 +14,7 @@ class _MyApp extends State<MyApp> {
   int _currentIndex = 0;
   List<Widget> _views = [
     new Home(),
-    new Container(color: Colors.white),
+    new Favorites(),
   ];
 
   @override

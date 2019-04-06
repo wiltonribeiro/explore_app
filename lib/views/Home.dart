@@ -16,7 +16,6 @@ class _Home extends State<Home>{
   QuestBloc _questBloc;
   PhotosBloc _photosBloc;
 
-
   @override
   void initState() {
     super.initState();
